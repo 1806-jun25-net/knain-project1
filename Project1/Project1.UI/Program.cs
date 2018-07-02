@@ -10,7 +10,7 @@ namespace Project1.UI
             Customers.NewCustomer();
             Customers.ReturningCustomer();
             Order.OrderPizza();
-            Location.OrderHistoryAdd();
+            //Location.OrderHistoryAdd();
         }
     }
 }
