@@ -48,7 +48,7 @@ namespace Project1.XUnit
         [Fact]
         public void TestInventoryTrue()
         {
-            Location.InventoryRecall();
+            Location.InventoryRecall2();
 
             string location = "Herndon";
             List<string> toppings = new List<string> { "Bacon", "Sausage" };
@@ -57,13 +57,13 @@ namespace Project1.XUnit
 
             bool expected = true;
 
-            Assert.Equal(expected, Location.Check(location, toppings, size, quantity));
+            Assert.Equal(expected, Location.Check2(location, toppings, size, quantity));
         }
 
         [Fact]
         public void TestInventoryFalse()
         {
-            Location.InventoryRecall();
+            Location.InventoryRecall2();
 
             string location = "Herndon";
             List<string> toppings = new List<string> { "Bacon", "Sausage" };
@@ -72,7 +72,7 @@ namespace Project1.XUnit
 
             bool expected = false;
 
-            Assert.Equal(expected, Location.Check(location, toppings, size, quantity));
+            Assert.Equal(expected, Location.Check2(location, toppings, size, quantity));
         }
     }
 }

@@ -58,9 +58,12 @@ namespace Project1.Library
                     case 4:
                         for (int a = 0; a < Pizza.Toppings.Count; a++)
                         {
-                            if (checker == Pizza.Toppings[a] || checker == "")
+                            if (Pizza.TempToppings.Contains(checker))
                             {
-                                goto case 0;
+                                if (checker == Pizza.Toppings[a] || checker == "")
+                                {
+                                    goto case 0;
+                                }
                             }
                         }
                         Console.WriteLine(message + "topping.");
@@ -85,6 +88,7 @@ namespace Project1.Library
                                 goto case 0;
                             }
                         }
+                        Console.WriteLine("Please enter a valid location");
                         break;
 
                     case 7:
