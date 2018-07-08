@@ -6,9 +6,9 @@ namespace Project1.Library
 {
     public class Validation
     {
-        public int ValidationCheck { get; set; }
+        public static int ValidationCheck { get; set; }
 
-        public string AttemptValidation()
+        public static string AttemptValidation()
         {
             string checker = null;
 
@@ -23,13 +23,13 @@ namespace Project1.Library
                         return checker;
 
                     case 1:
-                        if (checker == "New" || checker == "Returning")
+                        if (checker == "New" || checker == "Returning" || checker == "Password123")
                         {
                             goto case 0;
                         }
                         else
                         {
-                            Console.WriteLine("Sorry I didn't understand that could you please type New or Returning");
+                            Console.WriteLine("Sorry I didn't understand that, could you please typing New or Returning");
                         }
                         break;
 
@@ -65,6 +65,50 @@ namespace Project1.Library
                         }
                         Console.WriteLine(message + "topping.");
                         break;
+
+                    case 5:
+                        for (int a = 1; a < 13; a++)
+                        {
+                            if (checker == Convert.ToString(a))
+                            {
+                                goto case 0;
+                            }
+                        }
+                        Console.WriteLine("Please enter a valid quantity.");
+                        break;
+
+                    case 6:
+                        for (int a = 0; a < Location.Locations.Count; a++)
+                        {
+                            if (checker == Location.Locations[a])
+                            {
+                                goto case 0;
+                            }
+                        }
+                        break;
+
+                    case 7:
+                        if (checker == "Yes" || checker == "No")
+                        {
+                            goto case 0;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Sorry I didn't understand that, could you please typing Yes or No");
+                        }
+                        break;
+
+                    case 10:
+                        if (checker == "Yes")
+                        {
+                            goto case 0;
+                        }
+
+                        else if (checker == "No")
+                        {
+                            Environment.Exit(0);
+                        }
+                        break;
                 }
 
                 if (i == 4)
@@ -77,7 +121,31 @@ namespace Project1.Library
             return null;
         }
 
-        public virtual string ReadNext()
+        public bool TestValidation(List<string> actual, List<string> input)
+        {
+            bool checker = false;
+            int checkNum = 0;
+
+            foreach (var size in actual)
+            {
+                foreach (var item in input)
+                {
+                    if (size == item)
+                    {
+                        checkNum++;
+                    }
+                }
+            }
+
+            if (checkNum == input.Count)
+            {
+                checker = true;
+            }
+
+            return checker;
+        }
+
+        public static string ReadNext()
         {
             return Console.ReadLine();
         }

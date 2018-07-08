@@ -1,0 +1,87 @@
+<?xml version="1.0"?>
+<ArrayOfSerializeOrder xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <SerializeOrder CustName="Wayne">
+    <OrderLocation>Herndon</OrderLocation>
+    <OrderSize>Small</OrderSize>
+    <OrderCrust>Hand Tossed</OrderCrust>
+    <OrderToppings>
+      <string>Chicken</string>
+      <string>Olives</string>
+    </OrderToppings>
+    <OrderQuantity>2</OrderQuantity>
+    <OrderCost>13.9</OrderCost>
+    <OrderTime>2018-07-04T19:03:15.4488043-04:00</OrderTime>
+  </SerializeOrder>
+  <SerializeOrder CustName="Wayne">
+    <OrderLocation>Reston</OrderLocation>
+    <OrderSize>Small</OrderSize>
+    <OrderCrust>Deep Dish</OrderCrust>
+    <OrderToppings>
+      <string>Salami</string>
+    </OrderToppings>
+    <OrderQuantity>1</OrderQuantity>
+    <OrderCost>5.95</OrderCost>
+    <OrderTime>2018-07-04T19:36:08.930382-04:00</OrderTime>
+  </SerializeOrder>
+  <SerializeOrder CustName="Wayne">
+    <OrderLocation>Reston</OrderLocation>
+    <OrderSize>Medium</OrderSize>
+    <OrderCrust>Thin Crust</OrderCrust>
+    <OrderToppings>
+      <string>Peppers</string>
+      <string>Olives</string>
+    </OrderToppings>
+    <OrderQuantity>2</OrderQuantity>
+    <OrderCost>15.9</OrderCost>
+    <OrderTime>2018-07-04T19:39:24.2370264-04:00</OrderTime>
+  </SerializeOrder>
+  <SerializeOrder CustName="Wayne">
+    <OrderLocation>Reston</OrderLocation>
+    <OrderSize>Medium</OrderSize>
+    <OrderCrust>Thin Crust</OrderCrust>
+    <OrderToppings>
+      <string>Peppers</string>
+      <string>Olives</string>
+    </OrderToppings>
+    <OrderQuantity>2</OrderQuantity>
+    <OrderCost>15.9</OrderCost>
+    <OrderTime>2018-07-04T22:10:46.9258841-04:00</OrderTime>
+  </SerializeOrder>
+  <SerializeOrder CustName="Robot">
+    <OrderLocation>Herndon</OrderLocation>
+    <OrderSize>Small</OrderSize>
+    <OrderCrust>Hand Tossed</OrderCrust>
+    <OrderToppings>
+      <string>Chicken</string>
+      <string>Olives</string>
+    </OrderToppings>
+    <OrderQuantity>2</OrderQuantity>
+    <OrderCost>13.9</OrderCost>
+    <OrderTime>2018-07-04T22:11:27.0161667-04:00</OrderTime>
+  </SerializeOrder>
+  <SerializeOrder CustName="Wayn">
+    <OrderLocation>Fairfax</OrderLocation>
+    <OrderSize>Large</OrderSize>
+    <OrderCrust>Hand Tossed</OrderCrust>
+    <OrderToppings>
+      <string>Sausage</string>
+      <string>Salami</string>
+    </OrderToppings>
+    <OrderQuantity>1</OrderQuantity>
+    <OrderCost>10.95</OrderCost>
+    <OrderTime>2018-07-08T14:42:36.6587901-04:00</OrderTime>
+  </SerializeOrder>
+  <SerializeOrder CustName="Wayne">
+    <OrderLocation>Fairfax</OrderLocation>
+    <OrderSize>Medium</OrderSize>
+    <OrderCrust>Deep Dish</OrderCrust>
+    <OrderToppings>
+      <string>Sausage</string>
+      <string>Anchovies</string>
+      <string>Peppers</string>
+    </OrderToppings>
+    <OrderQuantity>4</OrderQuantity>
+    <OrderCost>39.8</OrderCost>
+    <OrderTime>2018-07-08T15:42:24.658572-04:00</OrderTime>
+  </SerializeOrder>
+</ArrayOfSerializeOrder>
