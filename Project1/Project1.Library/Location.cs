@@ -102,6 +102,22 @@ namespace Project1.Library
             LocationInventory2 = inventory;
         }
 
+        public static void WriteInventory(int marker)
+        {
+            Console.WriteLine($"\nLocation Name: {LocationInventory[marker].Location}" +
+                $"\nDough: {LocationInventory[marker].Dough}" +
+                $"\nAnchovies: {LocationInventory[marker].ToppingLevels[0]}" +
+                $"\nBacon: {LocationInventory[marker].ToppingLevels[1]}" +
+                $"\nChicken: {LocationInventory[marker].ToppingLevels[2]}" +
+                $"\nMushrooms: {LocationInventory[marker].ToppingLevels[3]}" +
+                $"\nOlives: {LocationInventory[marker].ToppingLevels[4]}" +
+                $"\nOnions: {LocationInventory[marker].ToppingLevels[5]}" +
+                $"\nPepperoni: {LocationInventory[marker].ToppingLevels[6]}" +
+                $"\nPeppers: {LocationInventory[marker].ToppingLevels[7]}" +
+                $"\nSalami: {LocationInventory[marker].ToppingLevels[8]}" +
+                $"\nSausage: {LocationInventory[marker].ToppingLevels[9]}");
+        }
+
         public static bool Check(string location, List<string> toppings, string size, int quantity)
         {
             bool check = false;
@@ -302,6 +318,46 @@ namespace Project1.Library
                 {
                     count++;
                     PizzaRepos.WritePizzaOrder(marker);
+                }
+            }
+            if (count == 0)
+            {
+                Console.WriteLine("Sorry, I couldn't find any order for that Location.");
+            }
+        }
+
+        public static void LocationInventoryLevels()
+        {
+            Console.WriteLine("Which Location would you like to see Inventory Levels for?");
+            string input = Console.ReadLine();
+            int count = 0;
+            for (int i = 0; i < LocationInventory.Count; i++)
+            {
+                int marker = LocationInventory.Count - 1 - i;
+                if (LocationInventory[marker].Location == input)
+                {
+                    count++;
+                    WriteInventory(marker);
+                }
+            }
+            if (count == 0)
+            {
+                Console.WriteLine("Sorry, I couldn't find any order for that Location.");
+            }
+        }
+
+        public static void LocationInventoryLevels2()
+        {
+            Console.WriteLine("Which Location would you like to see Inventory Levels for?");
+            string input = Console.ReadLine();
+            int count = 0;
+            for (int i = 0; i < LocationInventory2.Count; i++)
+            {
+                int marker = LocationInventory2.Count - 1 - i;
+                if (LocationInventory2[marker].LocationName == input)
+                {
+                    count++;
+                    PizzaRepos.WriteInventory(marker);
                 }
             }
             if (count == 0)

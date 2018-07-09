@@ -15,6 +15,10 @@ namespace Project1.Library
             for (int i = 0; i < 6; i++)
             {
                 checker = ReadNext();
+                //checker = ReadNext().ToLower();
+                //char first = checker[0];
+                //char upper = char.ToUpper(first);
+                //checker = upper + checker.Substring(1);
                 string message = "Sorry I didn't understand that, could you please type a valid pizza ";
 
                 switch (ValidationCheck)
@@ -58,7 +62,7 @@ namespace Project1.Library
                     case 4:
                         for (int a = 0; a < Pizza.Toppings.Count; a++)
                         {
-                            if (Pizza.TempToppings.Contains(checker))
+                            if (Pizza.TempToppings.Contains(checker) || checker == "")
                             {
                                 if (checker == Pizza.Toppings[a] || checker == "")
                                 {

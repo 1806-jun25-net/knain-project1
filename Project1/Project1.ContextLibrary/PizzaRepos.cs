@@ -73,6 +73,37 @@ namespace Project1.ContextLibrary
 
         }
 
+        public static void WriteInventory(int marker)
+        {
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+
+            IConfigurationRoot configuration = builder.Build();
+
+            //Console.WriteLine(configuration.GetConnectionString("Project1"));
+
+            var optionsBuilder = new DbContextOptionsBuilder<Project1Context>();
+            optionsBuilder.UseSqlServer(configuration.GetConnectionString("Project1"));
+
+            var repo = new PizzaRepos(new Project1Context(optionsBuilder.Options));
+
+            List<LocationInventory> inventories = repo.GetInventories();
+            
+            Console.WriteLine($"\nLocation Name: {inventories[marker].LocationName}" +
+                $"\nDough: {inventories[marker].Dough}" +
+                $"\nAnchovies: {inventories[marker].Anchovies}" +
+                $"\nBacon: {inventories[marker].Bacon}" +
+                $"\nChicken: {inventories[marker].Chicken}" +
+                $"\nMushrooms: {inventories[marker].Mushrooms}" +
+                $"\nOlives: {inventories[marker].Olives}" +
+                $"\nOnions: {inventories[marker].Onions}" +
+                $"\nPepperoni: {inventories[marker].Pepperoni}" +
+                $"\nPeppers: {inventories[marker].Peppers}" +
+                $"\nSalami: {inventories[marker].Salami}" +
+                $"\nSausage: {inventories[marker].Sausage}");
+        }
+
         public int CheckCustomerId(string custName)
         {
             List<Customer> customers = project1.Customer.AsNoTracking().ToList();
@@ -131,7 +162,7 @@ namespace Project1.ContextLibrary
             {
                 if (locations[a].LocationName == name)
                 {
-                    LocationId = a;
+                    LocationId = a + 1;
                     break;
                 }
             }

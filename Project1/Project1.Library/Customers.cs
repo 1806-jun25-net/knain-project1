@@ -270,7 +270,8 @@ namespace Project1.Library
                     "\n3. Order History sorted from Cheapest to Most Expensive" +
                     "\n4. Order History is sorted from Most Expensive to Cheapest" +
                     "\n5. Order History for a specific Customer" +
-                    "\n6. Order History for a specific Location");
+                    "\n6. Order History for a specific Location" +
+                    "\n7. Inventory Levels for a specific Location");
                 Console.WriteLine("Please select a number 1 through 6 or type Done to exit");
                 input = Console.ReadLine();
 
@@ -299,6 +300,10 @@ namespace Project1.Library
                     case "6":
                         Location.LocationOrderHistory();
                         break;
+
+                    case "7":
+                        Location.LocationInventoryLevels();
+                        break;
                 }
             } while (input != "Done");
             Environment.Exit(0);
@@ -315,7 +320,8 @@ namespace Project1.Library
                     "\n3. Order History sorted from Cheapest to Most Expensive" +
                     "\n4. Order History is sorted from Most Expensive to Cheapest" +
                     "\n5. Order History for a specific Customer" +
-                    "\n6. Order History for a specific Location");
+                    "\n6. Order History for a specific Location" +
+                    "\n7. Inventory Levels for a specific Location");
                 Console.WriteLine("Please select a number 1 through 6 or type Done to exit");
                 input = Console.ReadLine();
 
@@ -343,6 +349,10 @@ namespace Project1.Library
 
                     case "6":
                         Location.LocationOrderHistory2();
+                        break;
+
+                    case "7":
+                        Location.LocationInventoryLevels2();
                         break;
                 }
             } while (input != "Done");

@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using NLog;
 using Project1.ContextLibrary;
 using Project1.Library;
 using System;
@@ -11,8 +12,24 @@ namespace Project1.UI
 {
     public class Program
     {
+        //set up logging
+        private static readonly Logger logger =
+            LogManager.GetCurrentClassLogger();
+
         static void Main(string[] args)
         {
+            //start logging
+            logger.Info("Application start");
+
+            try
+            {
+                throw new ArgumentException("Error!");
+            }
+            catch (ArgumentException ex)
+            {
+                logger.Error(ex, "Error thrown right after startup");
+            }
+
             //deserialize Inventory and Order History files
             Location.InventoryRecall();
             Location.OrderHistoryRecall();
@@ -59,6 +76,9 @@ namespace Project1.UI
 
             //Location.OrderHistoryAdd(Location.OrderHistory);
             //Serializer.SerializeOrderToFile(@"C:\Revature\knain-project1\Project1\orderHistory.xml", Location.OrderHistory);
+
+            //end logging
+            logger.Info("Application shutting down");
         }
     }
 }
