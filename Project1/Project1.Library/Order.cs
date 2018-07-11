@@ -51,7 +51,7 @@ namespace Project1.Library
 
             Console.WriteLine("When you are done selecting toppings just leave it blank.");
             Validation.ValidationCheck = 4;
-            for (int i = 0; i <= 5; i++)
+            for (int i = 0; i < 5; i++)
             {
                 Console.WriteLine(Pizza.WriteLine(Pizza.TempToppings));
                 OrderToppings.Add(item: Validation.AttemptValidation());

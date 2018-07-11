@@ -50,7 +50,7 @@ namespace Project1.Library
                 {
                     return "No";
                 }
-                Console.WriteLine($"Would you like to order your most recent order:" +
+                Console.WriteLine($"\nWould you like to order your most recent order:" +
                     $"\nLocation: {PreviousOrder(1)}" +
                     $"\nSize: {PreviousOrder(2)}" +
                     $"\nCrust: { PreviousOrder(3)}" +
@@ -322,7 +322,7 @@ namespace Project1.Library
                     "\n5. Order History for a specific Customer" +
                     "\n6. Order History for a specific Location" +
                     "\n7. Inventory Levels for a specific Location");
-                Console.WriteLine("Please select a number 1 through 6 or type Done to exit");
+                Console.WriteLine("Please select a number 1 through 7 or type Done to exit");
                 input = Console.ReadLine();
 
                 switch (input)

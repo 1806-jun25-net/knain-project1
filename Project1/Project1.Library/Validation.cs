@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NLog;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -6,6 +7,7 @@ namespace Project1.Library
 {
     public class Validation
     {
+        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
         public static int ValidationCheck { get; set; }
 
         public static string AttemptValidation()
@@ -124,7 +126,8 @@ namespace Project1.Library
                     Console.WriteLine("\nYou may only try one more time or you will be forced to exit.");
                 }
             }
-
+            logger.Info("Order Canceled because of too many wrong attempts");
+            logger.Info("Application shutting down");
             Environment.Exit(0);
             return null;
         }
@@ -154,7 +157,7 @@ namespace Project1.Library
         }
 
         public static string ReadNext()
-        {
+        {            
             return Console.ReadLine();
         }
     }

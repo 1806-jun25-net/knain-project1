@@ -13,22 +13,12 @@ namespace Project1.UI
     public class Program
     {
         //set up logging
-        private static readonly Logger logger =
-            LogManager.GetCurrentClassLogger();
+        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
         static void Main(string[] args)
         {
             //start logging
-            logger.Info("Application start");
-
-            try
-            {
-                throw new ArgumentException("Error!");
-            }
-            catch (ArgumentException ex)
-            {
-                logger.Error(ex, "Error thrown right after startup");
-            }
+            logger.Info("Application starting up");
 
             //deserialize Inventory and Order History files
             Location.InventoryRecall();
@@ -36,7 +26,7 @@ namespace Project1.UI
 
             Location.InventoryRecall2();
             Location.OrderHistoryRecall2();
-            
+
 
             //start program
             Customers.NewCustomer();
@@ -53,7 +43,7 @@ namespace Project1.UI
                 Console.ReadKey();
                 Environment.Exit(0);
             }
-                
+
             //checks current inventory levels
             //change Check to switch from XML to DB
             if (Location.Check2(Order.OrderLocation, Order.OrderToppings, Order.OrderSize, Order.OrderQuantity) == false)
@@ -70,6 +60,15 @@ namespace Project1.UI
             //add information to DB
 
             Context.Program.Main();
+
+            //log customer info
+            logger.Info($"Customer Name: {Customers.CustName}");
+            logger.Info($"Order Location: {Order.OrderLocation}");
+            logger.Info($"Order Size: {Order.OrderSize}");
+            logger.Info($"Order Crust: {Order.OrderCrust}");
+            logger.Info($"Order Toppings: {string.Join(", ", Order.OrderToppings.ToArray())}");
+            logger.Info($"Order Quantity: {Order.OrderQuantity}");
+            logger.Info($"Order Cost: {Order.OrderCost}");
 
             //serialize Inventory and Order History files
             //Serializer.SerializeInventoryToFile(@"C:\Revature\knain-project1\Project1\locationInventory.xml", Location.LocationInventory);
