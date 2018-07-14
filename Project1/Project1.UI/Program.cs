@@ -62,7 +62,7 @@ namespace Project1.UI
             Context.Program.Main();
 
             //log customer info
-            logger.Info($"Customer Name: {Customers.CustName}");
+            logger.Info($"Customer Name: {Customers.CustomerName}");
             logger.Info($"Order Location: {Order.OrderLocation}");
             logger.Info($"Order Size: {Order.OrderSize}");
             logger.Info($"Order Crust: {Order.OrderCrust}");

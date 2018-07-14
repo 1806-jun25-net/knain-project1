@@ -25,6 +25,15 @@ namespace Project1.ContextLibrary
             return pizzaOrders;
         }
 
+        public List<PizzaOrder> GetPizzaOrders(string input)
+        {
+            List<PizzaOrder> pizzaOrders =
+                project1.PizzaOrder.Include(c => c.Customer).Include(l => l.Location)
+                .Include(p => p.Pizza).Include(po => po.PizzaOrderToppings)
+                .AsNoTracking().Where(a => a.Customer.CustomerName.Contains(input)).ToList();
+            return pizzaOrders;
+        }
+
         public List<LocationInventory> GetInventories()
         {
             List<LocationInventory> inventories =
@@ -203,8 +212,17 @@ namespace Project1.ContextLibrary
         public void UpdateLocationInventory(string location, string size, List<string> toppings, int quantity)
         {
             int LocationId = LookupLocationId(location);
+            LocationInventory inventory = new LocationInventory { };
             var locations = GetInventories();
-            var inventory = locations[LocationId];
+            for (int a = 0; a < locations.Count; a++)
+            {
+                if (locations[a].LocationId == LocationId)
+                {
+                    inventory = locations[a];
+                    break;
+                }
+            }
+            
             double doughUsed;
 
             if (size == "Small")
@@ -268,6 +286,7 @@ namespace Project1.ContextLibrary
                 }
             }
             project1.Update(inventory);
+            SaveChanges();
         }
 
         public void SaveChanges()

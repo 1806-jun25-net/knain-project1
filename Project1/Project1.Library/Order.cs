@@ -64,12 +64,12 @@ namespace Project1.Library
                 Console.WriteLine("\n");
             }
 
-            Console.WriteLine($"Current total: ${CalculateCost()}");
-
             Validation.ValidationCheck = 5;
             Console.WriteLine($"How many {OrderSize} pizzas would you like to order?");
             OrderQuantity = Convert.ToInt32(Validation.AttemptValidation());
-            OrderCost *= OrderQuantity;
+
+            OrderCost = CalculateCost(OrderSize, OrderToppings, OrderQuantity);
+            
             Console.WriteLine($"Current total: ${OrderCost}\n");
         }
 
@@ -98,7 +98,7 @@ namespace Project1.Library
 
             for (int a = 0; a < Location.OrderHistory.Count; a++)
             {
-                if (Location.OrderHistory[Location.OrderHistory.Count - 1 - a].CustName == Customers.CustName)
+                if (Location.OrderHistory[Location.OrderHistory.Count - 1 - a].CustName == Customers.CustomerName)
                 {
                     //checks if you have placed an order at your current location
                     if (Location.OrderHistory[Location.OrderHistory.Count - 1 - a].OrderLocation == Order.OrderLocation)
@@ -125,7 +125,7 @@ namespace Project1.Library
 
             for (int a = 0; a < Location.OrderHistory2.Count; a++)
             {
-                if (Location.OrderHistory2[Location.OrderHistory2.Count - 1 - a].Customer.CustomerName == Customers.CustName)
+                if (Location.OrderHistory2[Location.OrderHistory2.Count - 1 - a].Customer.CustomerName == Customers.CustomerName)
                 {
                     //checks if you have placed an order at your current location
                     if (Location.OrderHistory2[Location.OrderHistory2.Count - 1 - a].Location.LocationName == Order.OrderLocation)
@@ -143,44 +143,44 @@ namespace Project1.Library
             return true;
         }
 
-        public static double CalculateCost()
+        public static double CalculateCost(string size, List<string> toppings, int quantity)
         {
             double Cost;
-            if (OrderSize == "Small")
+            if (size == "Small")
             {
                 Cost = Pizza.Price[0];
-                if (OrderToppings.Count - 1 < 0)
+                if (toppings.Count - 1 < 0)
                 {
 
                 }
                 else
-                    Cost += (OrderToppings.Count - 1) * 1.0;
+                    Cost += (toppings.Count - 1) * 1.0;
 
             }
 
-            else if (OrderSize == "Medium")
+            else if (size == "Medium")
             {
                 Cost = Pizza.Price[1];
-                if (OrderToppings.Count - 2 < 0)
+                if (toppings.Count - 2 < 0)
                 {
 
                 }
                 else
-                    Cost += (OrderToppings.Count - 1) * 1.0;
+                    Cost += (toppings.Count - 1) * 1.0;
             }
 
             else
             {
                 Cost = Pizza.Price[2];
-                if (OrderToppings.Count - 2 < 0)
+                if (toppings.Count - 2 < 0)
                 {
 
                 }
                 else
-                    Cost += (OrderToppings.Count - 1) * 1.0;
+                    Cost += (toppings.Count - 1) * 1.0;
             }
-            OrderCost = Cost;
-            return Cost;
+            OrderCost = Cost * quantity;
+            return OrderCost;
         }
 
         public static void WriteOrder(int marker)

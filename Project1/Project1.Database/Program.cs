@@ -28,7 +28,7 @@ namespace Project1.Context
 
             repo.UpdateLocationInventory(Order.OrderLocation, Order.OrderSize, Order.OrderToppings, Order.OrderQuantity);
 
-            int custId = repo.CheckCustomerId(Customers.CustName);
+            int custId = repo.CheckCustomerId(Customers.CustomerName);
             int locationId = repo.LookupLocationId(Order.OrderLocation);
             int pizzaId = repo.LookupPizzaId(Order.OrderSize, Order.OrderCrust);
 

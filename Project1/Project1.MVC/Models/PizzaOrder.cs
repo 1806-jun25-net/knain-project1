@@ -1,9 +1,12 @@
-﻿using System;
+﻿using Project1.ContextLibrary;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace Project1.ContextLibrary
+namespace Project1.MVC.Models
 {
-    public partial class PizzaOrder
+    public class PizzaOrder
     {
         public PizzaOrder()
         {

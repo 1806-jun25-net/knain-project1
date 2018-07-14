@@ -1,0 +1,73 @@
+﻿@model Project1.ContextLibrary.PizzaOrder
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Create</h2>
+
+<h4>PizzaOrder</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Customer.CustomerName" class="control-label"></label>
+                <input type="text" asp-for="Customer.CustomerName" class="form-control"
+                       value="@if (TempData.ContainsKey("CurrentCustomerName"))
+	                            {
+		                            @TempData.Peek("CurrentCustomerName")
+	                            }" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Location.LocationName" class="control-label"></label>
+                <select asp-for="Location.LocationName" class="form-control" asp-items="@Project1.Library.Location.Locations.
+                    Select(x => new SelectListItem()
+                    {
+                        Text = x.ToString()
+                    })"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Pizza.PizzaSize" class="control-label"></label>
+                <select asp-for="Pizza.PizzaSize" class="form-control" asp-items="@Project1.Library.Pizza.Size.
+                    Select(x => new SelectListItem()
+                    {
+                        Text = x.ToString()
+                    })"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Pizza.PizzaCrust" class="control-label"></label>
+                <select asp-for="Pizza.PizzaCrust" class="form-control" asp-items="@Project1.Library.Pizza.Crust.
+                    Select(x => new SelectListItem()
+                    {
+                        Text = x.ToString()
+                    })"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="PizzaOrderToppings" class="control-label"></label>
+                <select asp-for="PizzaOrderToppings" class="form-control" asp-items="@Project1.Library.Pizza.Toppings.
+                    Select(x => new SelectListItem()
+                    {
+                        Text = x.ToString()
+                    })" multiple></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="PizzaQuantity" class="control-label"></label>
+                <input asp-for="PizzaQuantity" value="1" min="1" max="12" class="form-control" />
+                <span asp-validation-for="PizzaQuantity" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

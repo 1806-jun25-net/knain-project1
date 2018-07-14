@@ -9,7 +9,7 @@ namespace Project1.Library
     public class Customers
     {
         public static List<string> Checker { get; set; } = new List<string> { "New", "Returning" };
-        public static string CustName { get; set; }
+        public static string CustomerName { get; set; }
 
         public static void NewCustomer()
         {
@@ -24,11 +24,11 @@ namespace Project1.Library
             {
                 Console.WriteLine("Since you're new here can I get your first and last name, " +
                     "or you may enter nothing and your data will not be saved.");
-                CustName = Validation.ReadNext();
+                CustomerName = Validation.ReadNext();
 
-                if (CustName == "")
+                if (CustomerName == "")
                 {
-                    CustName = "Guest";
+                    CustomerName = "Guest";
                 }
             }
             else if (Order.CustChecker == "Password123")
@@ -42,10 +42,10 @@ namespace Project1.Library
             if (Order.CustChecker == "Returning")
             {
                 Console.WriteLine("Can you please enter your first and last name.");
-                CustName = Validation.ReadNext();
+                CustomerName = Validation.ReadNext();
 
                 //searches for customer's most recent order and populates the terminal
-                Console.WriteLine($"Hello {CustName}, welcome!");
+                Console.WriteLine($"Hello {CustomerName}, welcome!");
                 if (PreviousOrder(0) == "No")
                 {
                     return "No";
@@ -81,10 +81,10 @@ namespace Project1.Library
             if (Order.CustChecker == "Returning")
             {
                 Console.WriteLine("Can you please enter your first and last name.");
-                CustName = Validation.ReadNext();
+                CustomerName = Validation.ReadNext();
 
                 //searches for customer's most recent order and populates the terminal
-                Console.WriteLine($"Hello {CustName}, welcome!");
+                Console.WriteLine($"Hello {CustomerName}, welcome!");
                 if (PreviousOrder2(0) == "No")
                 {
                     return "No";
@@ -129,7 +129,7 @@ namespace Project1.Library
 
             for (int i = 0; i < Location.OrderHistory.Count; i++)
             {
-                if (Location.OrderHistory[Location.OrderHistory.Count - 1 - i].CustName == CustName)
+                if (Location.OrderHistory[Location.OrderHistory.Count - 1 - i].CustName == CustomerName)
                 {
                     marker = Location.OrderHistory.Count - 1 - i;
                     break;
@@ -138,7 +138,7 @@ namespace Project1.Library
 
             if (marker == -1)
             {
-                Console.WriteLine($"Sorry we don't have a previous customer named {CustName}" +
+                Console.WriteLine($"Sorry we don't have a previous customer named {CustomerName}" +
                     $"\nwe'll start you on a new order.\n");
                 return "No";
             }
@@ -175,7 +175,7 @@ namespace Project1.Library
             for (int i = 0; i < Location.OrderHistory2.Count; i++)
             {
 
-                if (Location.OrderHistory2[Location.OrderHistory2.Count - 1 - i].Customer.CustomerName == CustName)
+                if (Location.OrderHistory2[Location.OrderHistory2.Count - 1 - i].Customer.CustomerName == CustomerName)
                 {
                     marker = Location.OrderHistory2.Count - 1 - i;
                     break;
@@ -184,7 +184,7 @@ namespace Project1.Library
 
             if (marker == -1)
             {
-                Console.WriteLine($"Sorry we don't have a previous customer named {CustName}" +
+                Console.WriteLine($"Sorry we don't have a previous customer named {CustomerName}" +
                     $"\nwe'll start you on a new order.\n");
                 return "No";
             }

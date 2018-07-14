@@ -25,7 +25,7 @@ namespace Project1.Library
         {
             input.Add(new SerializeOrder
             {
-                CustName = Customers.CustName,
+                CustName = Customers.CustomerName,
                 OrderLocation = Order.OrderLocation,
                 OrderSize = Order.OrderSize,
                 OrderCrust = Order.OrderCrust,
