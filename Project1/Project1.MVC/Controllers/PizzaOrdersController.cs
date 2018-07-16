@@ -287,6 +287,13 @@ namespace Project1.MVC.Controllers
         {
             try
             {
+                Location.InventoryRecall2();
+                if (!Location.Check2(collection["Location.LocationName"], collection["PizzaOrderToppings"].ToList()
+                    ,collection["Pizza.PizzaSize"], Int32.Parse(collection["PizzaQuantity"])))
+                {
+                    throw new Exception();
+                }
+
                 // TODO: Add insert logic here
                 int cId = Repo.CheckCustomerId(collection["Customer.CustomerName"]);
                 int lId = Repo.LookupLocationId(collection["Location.LocationName"]);
@@ -307,7 +314,7 @@ namespace Project1.MVC.Controllers
             }
             catch(Exception ex)
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("Create");
             }
         }
 
