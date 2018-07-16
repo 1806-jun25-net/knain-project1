@@ -136,6 +136,20 @@ namespace Project1.ContextLibrary
             return customers[customers.Count - 1].CustomerId + 1;
         }
 
+        public bool CheckCustomerName(string name)
+        {
+            List<Customer> customers = project1.Customer.AsNoTracking().ToList();
+
+            foreach (var item in customers)
+            {
+                if (item.CustomerName == name)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         public void AddCustomer(string custName)
         {
             var customer = new Customer

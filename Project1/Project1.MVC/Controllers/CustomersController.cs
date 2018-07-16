@@ -30,12 +30,27 @@ namespace Project1.MVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult SignIn(IFormCollection collection)
         {
+            var builder = new ConfigurationBuilder()
+               .SetBasePath(Directory.GetCurrentDirectory())
+               .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+
+            IConfigurationRoot configuration = builder.Build();
+
+            var optionsBuilder = new DbContextOptionsBuilder<Project1Context>();
+            optionsBuilder.UseSqlServer(configuration.GetConnectionString("Project1"));
+
+            var repo = new PizzaRepos(new Project1Context(optionsBuilder.Options));
+
             if (collection["CustomerName"] == "Password123")
             {
                 TempData["CurrentCustomerName"] = "Mr. President";
                 return View("Manager");
             }
             TempData["CurrentCustomerName"] = collection["CustomerName"].ToString();
+            //if (repo.CheckCustomerName(collection["CustomerName"]))
+            //{
+            //    return RedirectToAction("PreviousOrder", "PizzaOrders");
+            //}
             return RedirectToAction("Create", "PizzaOrders");
         }
 

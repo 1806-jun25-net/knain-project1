@@ -300,6 +300,17 @@ namespace Project1.MVC.Controllers
                     throw new Exception();
                 }
 
+                if (Int32.Parse(collection["PizzaQuantity"]) > 12 || Int32.Parse(collection["PizzaQuantity"]) < 1)
+                {
+                    throw new Exception();
+                }
+
+                if (Order.CalculateCost(collection["Pizza.PizzaSize"],
+                    collection["PizzaOrderToppings"].ToList(), Int32.Parse(collection["PizzaQuantity"])) > 500)
+                {
+                    throw new Exception();
+                }
+
                 // TODO: Add insert logic here
                 int cId = Repo.CheckCustomerId(collection["Customer.CustomerName"]);
                 int lId = Repo.LookupLocationId(collection["Location.LocationName"]);
@@ -322,6 +333,60 @@ namespace Project1.MVC.Controllers
             {
                 return RedirectToAction("Create");
             }
+        }
+
+        public ActionResult PreviousOrder()
+        {
+            int pId = 0;
+            string name = TempData.Peek("CurrentCustomerName").ToString();
+            var libraryOrders = Repo.GetPizzaOrders();
+
+            for (int a = 0; a < libraryOrders.Count; a++)
+            {
+                if (libraryOrders[libraryOrders.Count - a - 1].Customer.CustomerName == name)
+                {
+                    pId = libraryOrders[libraryOrders.Count - a - 1].PizzaOrderId;
+                    break;
+                }
+            }
+
+            var previous = libraryOrders.Where(x => x.Customer.CustomerName == name).Select(x => new PizzaOrder
+            {
+                PizzaOrderId = x.PizzaOrderId
+            }).Last();
+
+            pId = previous.PizzaOrderId;
+
+            var webOrders = libraryOrders.Where(x => x.PizzaOrderId == pId).Select(x => new PizzaOrder
+            {
+                PizzaOrderId = x.PizzaOrderId,
+                CustomerId = x.CustomerId,
+                LocationId = x.LocationId,
+                PizzaId = x.PizzaId,
+                PizzaQuantity = x.PizzaQuantity,
+                OrderCost = x.OrderCost,
+                OrderTime = x.OrderTime,
+                Customer = libraryOrders.Where(y => y.CustomerId == x.CustomerId).Select(y => new Customer
+                {
+                    CustomerName = y.Customer.CustomerName
+                }).First(),
+                Location = libraryOrders.Where(y => y.LocationId == x.LocationId).Select(y => new LocationInventory
+                {
+                    LocationName = y.Location.LocationName
+                }).First(),
+                Pizza = libraryOrders.Where(y => y.PizzaId == x.PizzaId).Select(y => new ContextLibrary.Pizza
+                {
+                    PizzaSize = y.Pizza.PizzaSize,
+                    PizzaCrust = y.Pizza.PizzaCrust
+                }).First(),
+                PizzaOrderToppings = libraryOrders.Where(y => y.PizzaOrderId == x.PizzaOrderId).
+                    Select(y => new PizzaOrderToppings
+                    {
+                        ToppingName = string.Join(", ", y.PizzaOrderToppings.Select(y2 => y2.ToppingName).ToList())
+                    })
+            }).First();
+
+            return View(webOrders);
         }
 
         // GET: PizzaOrder/Edit/5

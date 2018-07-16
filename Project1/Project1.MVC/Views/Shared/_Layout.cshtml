@@ -33,6 +33,7 @@
                     <li><a asp-area="" asp-controller="Customers" asp-action="SignIn">Home</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
+                    <li><a asp-area="" asp-controller="PizzaOrders" asp-action="Create">Order</a></li>
                     @if (TempData.ContainsKey("CurrentCustomerName"))
                     {
                         <li>
@@ -51,7 +52,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; 2018 - Project1.MVC</p>
+            <p>&copy; Wayne's World Pizzeria</p>
         </footer>
     </div>
 

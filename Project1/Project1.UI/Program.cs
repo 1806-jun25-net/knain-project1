@@ -36,7 +36,8 @@ namespace Project1.UI
             }
 
             //checks if you are allowed to place an order
-            if (Order.CheckTime2(Order.OrderTime) == false) //change CheckTime to switch from XML to DB
+            if (Order.CheckTime2(Order.OrderTime, //change CheckTime to switch from XML to DB
+                Customers.CustomerName, Order.OrderLocation) == false) 
             {
                 Console.WriteLine("Sorry, you need to wait to place another order or choose a different location" +
                     "\npress any key to exit the program.");
