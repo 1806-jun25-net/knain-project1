@@ -47,10 +47,10 @@ namespace Project1.MVC.Controllers
                 return View("Manager");
             }
             TempData["CurrentCustomerName"] = collection["CustomerName"].ToString();
-            //if (repo.CheckCustomerName(collection["CustomerName"]))
-            //{
-            //    return RedirectToAction("PreviousOrder", "PizzaOrders");
-            //}
+            if (repo.CheckCustomerName(collection["CustomerName"]))
+            {
+                return RedirectToAction("PreviousOrder", "PizzaOrders");
+            }
             return RedirectToAction("Create", "PizzaOrders");
         }
 

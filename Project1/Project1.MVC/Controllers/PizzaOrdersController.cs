@@ -291,27 +291,30 @@ namespace Project1.MVC.Controllers
                 if (!Location.Check2(collection["Location.LocationName"], collection["PizzaOrderToppings"].ToList()
                     ,collection["Pizza.PizzaSize"], Int32.Parse(collection["PizzaQuantity"])))
                 {
+                    TempData["Message"] = "Not enough inventory at that location to place order.";
                     throw new Exception();
                 }
 
                 Location.OrderHistoryRecall2();
                 if (!Order.CheckTime2(DateTime.Now, collection["Customer.CustomerName"], collection["Location.LocationName"]))
                 {
+                    TempData["Message"] = "You need to wait at least 2 hour before making an order at the same location.";
                     throw new Exception();
                 }
 
                 if (Int32.Parse(collection["PizzaQuantity"]) > 12 || Int32.Parse(collection["PizzaQuantity"]) < 1)
                 {
+                    TempData["Message"] = "You can only have a quantity of 1 to 12 pizzas.";
                     throw new Exception();
                 }
 
                 if (Order.CalculateCost(collection["Pizza.PizzaSize"],
                     collection["PizzaOrderToppings"].ToList(), Int32.Parse(collection["PizzaQuantity"])) > 500)
                 {
+                    TempData["Message"] = "Your order cannot cost over $500, please order less pizza.";
                     throw new Exception();
                 }
 
-                // TODO: Add insert logic here
                 int cId = Repo.CheckCustomerId(collection["Customer.CustomerName"]);
                 int lId = Repo.LookupLocationId(collection["Location.LocationName"]);
                 int pId = Repo.LookupPizzaId(collection["Pizza.PizzaSize"], collection["Pizza.PizzaCrust"]);
@@ -385,6 +388,20 @@ namespace Project1.MVC.Controllers
                         ToppingName = string.Join(", ", y.PizzaOrderToppings.Select(y2 => y2.ToppingName).ToList())
                     })
             }).First();
+
+            TempData["Location"] = webOrders.Location.LocationName;
+            TempData["Size"] = webOrders.Pizza.PizzaSize;
+            TempData["Crust"] = webOrders.Pizza.PizzaCrust;
+            List<string> tempToppings = new List<string> { };
+            foreach (var item in webOrders.PizzaOrderToppings)
+            {
+                tempToppings.Add(item.ToppingName);
+            }
+            string toppings = tempToppings[0];
+            //List<string> toppings = tempToppings[0].Split(", ").ToList();
+            
+            TempData["Toppings"] = toppings;
+            TempData["Quantity"] = webOrders.PizzaQuantity;
 
             return View(webOrders);
         }
