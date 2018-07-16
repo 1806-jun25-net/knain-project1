@@ -116,7 +116,7 @@ namespace Project1.Library
             return true;
         }
 
-        public static bool CheckTime2(DateTime time)
+        public static bool CheckTime2(DateTime time, string name, string location)
         {
             if (Location.OrderHistory2.Count == 0)
             {
@@ -125,10 +125,10 @@ namespace Project1.Library
 
             for (int a = 0; a < Location.OrderHistory2.Count; a++)
             {
-                if (Location.OrderHistory2[Location.OrderHistory2.Count - 1 - a].Customer.CustomerName == Customers.CustomerName)
+                if (Location.OrderHistory2[Location.OrderHistory2.Count - 1 - a].Customer.CustomerName == name)
                 {
                     //checks if you have placed an order at your current location
-                    if (Location.OrderHistory2[Location.OrderHistory2.Count - 1 - a].Location.LocationName == Order.OrderLocation)
+                    if (Location.OrderHistory2[Location.OrderHistory2.Count - 1 - a].Location.LocationName == location)
                     {
                         //checks your last order time
                         if (time - Location.OrderHistory2[Location.OrderHistory2.Count - 1 -a].OrderTime > TimeSpan.FromHours(2))

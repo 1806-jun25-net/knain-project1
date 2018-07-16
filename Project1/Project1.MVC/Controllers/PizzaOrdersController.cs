@@ -294,6 +294,12 @@ namespace Project1.MVC.Controllers
                     throw new Exception();
                 }
 
+                Location.OrderHistoryRecall2();
+                if (!Order.CheckTime2(DateTime.Now, collection["Customer.CustomerName"], collection["Location.LocationName"]))
+                {
+                    throw new Exception();
+                }
+
                 // TODO: Add insert logic here
                 int cId = Repo.CheckCustomerId(collection["Customer.CustomerName"]);
                 int lId = Repo.LookupLocationId(collection["Location.LocationName"]);
