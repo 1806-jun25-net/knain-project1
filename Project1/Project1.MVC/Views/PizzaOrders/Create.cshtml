@@ -107,20 +107,26 @@
                     @{
                         string temp = TempData.Peek("Toppings").ToString();
                         List<string> toppings = temp.Split(", ").ToList();
+                        int checker = 0;
                     }
 
                     @foreach (var item in Project1.Library.Pizza.Toppings)
                     {
                         if (TempData.ContainsKey("Toppings"))
                         {
+                            checker = 0;
                             foreach (var top in toppings)
                             {
                                 if (item.Equals(top))
                                 {
                                     <option selected value="@item">@item</option>
+                                    checker++;
                                 }
                             }
-                            <option value="@item">@item</option>
+                            if (checker == 0)
+                            {
+                                <option value="@item">@item</option>
+                            }
                         }
                         else
                         {

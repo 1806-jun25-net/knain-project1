@@ -37,7 +37,7 @@ namespace Project1.MVC
             services.AddDbContext<Project1Context>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("Project1")));
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_0);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
