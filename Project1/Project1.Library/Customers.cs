@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Project1.Library
 {
-    public class Customers
+    public static class Customers
     {
         public static List<string> Checker { get; set; } = new List<string> { "New", "Returning" };
         public static string CustomerName { get; set; }

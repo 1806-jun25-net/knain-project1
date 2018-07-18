@@ -17,21 +17,14 @@ namespace Project1.Library
             for (int i = 0; i < 6; i++)
             {
                 checker = ReadNext();
-                //checker = ReadNext().ToLower();
-                //char first = checker[0];
-                //char upper = char.ToUpper(first);
-                //checker = upper + checker.Substring(1);
                 string message = "Sorry I didn't understand that, could you please type a valid pizza ";
 
                 switch (ValidationCheck)
                 {
-                    case 0:
-                        return checker;
-
                     case 1:
                         if (checker == "New" || checker == "Returning" || checker == "Password123")
                         {
-                            goto case 0;
+                            return checker;
                         }
                         else
                         {
@@ -44,7 +37,7 @@ namespace Project1.Library
                         {
                             if (checker == Pizza.Size[a])
                             {
-                                goto case 0;
+                                return checker;
                             }
                         }
                         Console.WriteLine(message + "size.");
@@ -55,7 +48,7 @@ namespace Project1.Library
                         {
                             if (checker == Pizza.Crust[a])
                             {
-                                goto case 0;
+                                return checker;
                             }
                         }
                         Console.WriteLine(message + "crust.");
@@ -64,12 +57,9 @@ namespace Project1.Library
                     case 4:
                         for (int a = 0; a < Pizza.Toppings.Count; a++)
                         {
-                            if (Pizza.TempToppings.Contains(checker) || checker == "")
+                            if (Pizza.TempToppings.Contains(checker) || checker == Pizza.Toppings[a] || checker == "")
                             {
-                                if (checker == Pizza.Toppings[a] || checker == "")
-                                {
-                                    goto case 0;
-                                }
+                                return checker;
                             }
                         }
                         Console.WriteLine(message + "topping.");
@@ -80,7 +70,7 @@ namespace Project1.Library
                         {
                             if (checker == Convert.ToString(a))
                             {
-                                goto case 0;
+                                return checker;
                             }
                         }
                         Console.WriteLine("Please enter a valid quantity.");
@@ -91,7 +81,7 @@ namespace Project1.Library
                         {
                             if (checker == Location.Locations[a])
                             {
-                                goto case 0;
+                                return checker;
                             }
                         }
                         Console.WriteLine("Please enter a valid location");
@@ -100,7 +90,7 @@ namespace Project1.Library
                     case 7:
                         if (checker == "Yes" || checker == "No")
                         {
-                            goto case 0;
+                            return checker;
                         }
                         else
                         {
@@ -111,7 +101,7 @@ namespace Project1.Library
                     case 10:
                         if (checker == "Yes")
                         {
-                            goto case 0;
+                            return checker;
                         }
 
                         else if (checker == "No")
@@ -157,7 +147,7 @@ namespace Project1.Library
         }
 
         public static string ReadNext()
-        {            
+        {
             return Console.ReadLine();
         }
     }

@@ -8,7 +8,7 @@ using System.IO;
 
 namespace Project1.Context
 {
-    public class Program
+    public static class Program
     {
         public static void Main()
         {
@@ -18,8 +18,6 @@ namespace Project1.Context
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
 
             IConfigurationRoot configuration = builder.Build();
-
-            //Console.WriteLine(configuration.GetConnectionString("Project1"));
 
             var optionsBuilder = new DbContextOptionsBuilder<Project1Context>();
             optionsBuilder.UseSqlServer(configuration.GetConnectionString("Project1"));

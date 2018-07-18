@@ -55,15 +55,13 @@ namespace Project1.ContextLibrary
 
             IConfigurationRoot configuration = builder.Build();
 
-            //Console.WriteLine(configuration.GetConnectionString("Project1"));
-
             var optionsBuilder = new DbContextOptionsBuilder<Project1Context>();
             optionsBuilder.UseSqlServer(configuration.GetConnectionString("Project1"));
 
             var repo = new PizzaRepos(new Project1Context(optionsBuilder.Options));
 
             List<PizzaOrder> pizzaOrders = repo.GetPizzaOrders();
-            List<string> toppings = new List<string> { };
+            List<string> toppings;
 
             toppings = new List<string> { };
             foreach (var item in pizzaOrders[marker].PizzaOrderToppings)
@@ -89,8 +87,6 @@ namespace Project1.ContextLibrary
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
 
             IConfigurationRoot configuration = builder.Build();
-
-            //Console.WriteLine(configuration.GetConnectionString("Project1"));
 
             var optionsBuilder = new DbContextOptionsBuilder<Project1Context>();
             optionsBuilder.UseSqlServer(configuration.GetConnectionString("Project1"));

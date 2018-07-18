@@ -69,7 +69,7 @@ namespace Project1.Library
             OrderQuantity = Convert.ToInt32(Validation.AttemptValidation());
 
             OrderCost = CalculateCost(OrderSize, OrderToppings, OrderQuantity);
-            
+
             Console.WriteLine($"Current total: ${OrderCost}\n");
         }
 
@@ -98,21 +98,18 @@ namespace Project1.Library
 
             for (int a = 0; a < Location.OrderHistory.Count; a++)
             {
-                if (Location.OrderHistory[Location.OrderHistory.Count - 1 - a].CustName == Customers.CustomerName)
+                int marker = Location.OrderHistory.Count - 1 - a;
+                if (Location.OrderHistory[marker].CustName == Customers.CustomerName ||
+                    Location.OrderHistory[marker].OrderLocation == OrderLocation)
                 {
-                    //checks if you have placed an order at your current location
-                    if (Location.OrderHistory[Location.OrderHistory.Count - 1 - a].OrderLocation == Order.OrderLocation)
+                    //checks your last order time
+                    if (time - Location.OrderHistory[marker].OrderTime > TimeSpan.FromHours(2))
                     {
-                        //checks your last order time
-                        if (time - Location.OrderHistory[Location.OrderHistory.Count - 1 - a].OrderTime > TimeSpan.FromHours(2))
-                        {
-                            return true;
-                        }
-                        return false;
+                        return true;
                     }
+                    return false;
                 }
             }
-
             return true;
         }
 
@@ -125,21 +122,18 @@ namespace Project1.Library
 
             for (int a = 0; a < Location.OrderHistory2.Count; a++)
             {
-                if (Location.OrderHistory2[Location.OrderHistory2.Count - 1 - a].Customer.CustomerName == name)
+                int marker = Location.OrderHistory.Count - 1 - a;
+                if (Location.OrderHistory2[marker].Customer.CustomerName == name ||
+                    Location.OrderHistory2[marker].Location.LocationName == location)
                 {
-                    //checks if you have placed an order at your current location
-                    if (Location.OrderHistory2[Location.OrderHistory2.Count - 1 - a].Location.LocationName == location)
+                    //checks your last order time
+                    if (time - Location.OrderHistory2[marker].OrderTime > TimeSpan.FromHours(2))
                     {
-                        //checks your last order time
-                        if (time - Location.OrderHistory2[Location.OrderHistory2.Count - 1 -a].OrderTime > TimeSpan.FromHours(2))
-                        {
-                            return true;
-                        }
-                        return false;
+                        return true;
                     }
+                    return false;
                 }
             }
-
             return true;
         }
 
@@ -149,35 +143,28 @@ namespace Project1.Library
             if (size == "Small")
             {
                 Cost = Pizza.Price[0];
-                if (toppings.Count - 1 < 0)
+                if (toppings.Count > 1)
                 {
-
-                }
-                else
                     Cost += (toppings.Count - 1) * 1.0;
-
+                }
             }
 
             else if (size == "Medium")
             {
                 Cost = Pizza.Price[1];
-                if (toppings.Count - 2 < 0)
+                if (toppings.Count > 2)
                 {
-
-                }
-                else
                     Cost += (toppings.Count - 1) * 1.0;
+                }
             }
 
             else
             {
                 Cost = Pizza.Price[2];
-                if (toppings.Count - 2 < 0)
+                if (toppings.Count > 2)
                 {
-
-                }
-                else
                     Cost += (toppings.Count - 1) * 1.0;
+                }
             }
             OrderCost = Cost * quantity;
             return OrderCost;
@@ -202,7 +189,7 @@ namespace Project1.Library
             {
                 int marker = Location.OrderHistory.Count - 1 - i;
                 WriteOrder(marker);
-            };
+            }
         }
         public static void LatestOrder()
         {
@@ -210,7 +197,7 @@ namespace Project1.Library
             for (int i = 0; i < Location.OrderHistory.Count; i++)
             {
                 WriteOrder(i);
-            };
+            }
         }
 
         public static void CheapestOrder()
@@ -223,13 +210,10 @@ namespace Project1.Library
                 int marker = 0;
                 for (int i = 0; i < Location.OrderHistory.Count; i++)
                 {
-                    if (!used.Contains(i))
+                    if (!used.Contains(i) || Location.OrderHistory[i].OrderCost < lowest)
                     {
-                        if (Location.OrderHistory[i].OrderCost < lowest)
-                        {
-                            marker = i;
-                            lowest = Location.OrderHistory[i].OrderCost;
-                        }
+                        marker = i;
+                        lowest = Location.OrderHistory[i].OrderCost;
                     }
                 }
                 used.Add(marker);
@@ -247,13 +231,10 @@ namespace Project1.Library
                 int marker = 0;
                 for (int i = 0; i < Location.OrderHistory.Count; i++)
                 {
-                    if (!used.Contains(i))
+                    if (!used.Contains(i) || Location.OrderHistory[i].OrderCost > highest)
                     {
-                        if (Location.OrderHistory[i].OrderCost > highest)
-                        {
-                            marker = i;
-                            highest = Location.OrderHistory[i].OrderCost;
-                        }
+                        marker = i;
+                        highest = Location.OrderHistory[i].OrderCost;
                     }
                 }
                 used.Add(marker);
@@ -268,7 +249,7 @@ namespace Project1.Library
             {
                 int marker = Location.OrderHistory2.Count - 1 - i;
                 PizzaRepos.WritePizzaOrder(marker);
-            };
+            }
         }
         public static void LatestOrder2()
         {
@@ -276,7 +257,7 @@ namespace Project1.Library
             for (int i = 0; i < Location.OrderHistory2.Count; i++)
             {
                 PizzaRepos.WritePizzaOrder(i);
-            };
+            }
         }
 
         public static void CheapestOrder2()
@@ -289,13 +270,10 @@ namespace Project1.Library
                 int marker = 0;
                 for (int i = 0; i < Location.OrderHistory2.Count; i++)
                 {
-                    if (!used.Contains(i))
+                    if (!used.Contains(i) || Location.OrderHistory2[i].OrderCost < lowest)
                     {
-                        if (Location.OrderHistory2[i].OrderCost < lowest)
-                        {
-                            marker = i;
-                            lowest = Location.OrderHistory2[i].OrderCost.Value;
-                        }
+                        marker = i;
+                        lowest = Location.OrderHistory2[i].OrderCost.Value;
                     }
                 }
                 used.Add(marker);
@@ -313,13 +291,10 @@ namespace Project1.Library
                 int marker = 0;
                 for (int i = 0; i < Location.OrderHistory2.Count; i++)
                 {
-                    if (!used.Contains(i))
+                    if (!used.Contains(i) || Location.OrderHistory2[i].OrderCost > highest)
                     {
-                        if (Location.OrderHistory2[i].OrderCost > highest)
-                        {
-                            marker = i;
-                            highest = Location.OrderHistory2[i].OrderCost.Value;
-                        }
+                        marker = i;
+                        highest = Location.OrderHistory2[i].OrderCost.Value;
                     }
                 }
                 used.Add(marker);

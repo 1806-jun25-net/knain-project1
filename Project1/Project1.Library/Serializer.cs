@@ -7,7 +7,7 @@ using System.Xml.Serialization;
 
 namespace Project1.Library
 {
-    public class Serializer
+    public static class Serializer
     {
         public static void SerializeOrderToFile(string fileName, List<SerializeOrder> order)
         {

@@ -11,13 +11,13 @@ using System.Threading.Tasks;
 
 namespace Project1.Library
 {
-    public class Location
+    public static class Location
     {
         public static List<SerializeOrder> OrderHistory { get; set; } = new List<SerializeOrder> { };
         public static List<PizzaOrder> OrderHistory2 { get; set; } = new List<PizzaOrder> { };
         public static List<SerializeInventory> LocationInventory { get; set; } = new List<SerializeInventory> { };
         public static List<LocationInventory> LocationInventory2 { get; set; } = new List<LocationInventory> { };
-        public static int LocationMarker = 0;
+        private static int LocationMarker = 0;
 
         public static List<string> Locations { get; } = new List<string> { "Herndon", "Reston", "Fairfax" };
 
@@ -38,8 +38,9 @@ namespace Project1.Library
 
         public static void OrderHistoryRecall()
         {
+            string path = @"C:\Revature\knain-project1\Project1\orderHistory.xml";
             Task<IEnumerable<SerializeOrder>> deserializeFile = Serializer.DeserializeOrderFromFile(
-                @"C:\Revature\knain-project1\Project1\orderHistory.xml");
+                path);
             IEnumerable<SerializeOrder> order = new List<SerializeOrder>();
             try
             {
@@ -54,8 +55,9 @@ namespace Project1.Library
 
         public static void InventoryRecall()
         {
+            string path = @"C:\Revature\knain-project1\Project1\locationInventory.xml";
             Task<IEnumerable<SerializeInventory>> deserializeFile = Serializer.DeserializeInventoryFromFile(
-                @"C:\Revature\knain-project1\Project1\locationInventory.xml");
+                path);
             IEnumerable<SerializeInventory> inventory = new List<SerializeInventory>();
             try
             {
@@ -138,31 +140,25 @@ namespace Project1.Library
             {
                 for (int b = 0; b < Pizza.Toppings.Count; b++)
                 {
-                    if (toppings[a] == Pizza.Toppings[b])
+                    if (toppings[a] == Pizza.Toppings[b] || quantity <= Int32.Parse(LocationInventory[LocationMarker].ToppingLevels[b]))
                     {
-                        if (quantity <= Int32.Parse(LocationInventory[LocationMarker].ToppingLevels[b]))
-                        {
-                            checkNum++;
-                            int newQuantity = Int32.Parse(LocationInventory[LocationMarker].ToppingLevels[b]) - quantity;
-                            LocationInventory[LocationMarker].ToppingLevels[b] = newQuantity.ToString();
-                        }
-                        break;
+                        checkNum++;
+                        int newQuantity = Int32.Parse(LocationInventory[LocationMarker].ToppingLevels[b]) - quantity;
+                        LocationInventory[LocationMarker].ToppingLevels[b] = newQuantity.ToString();
                     }
+                    break;
                 }
             }
 
             //check if location has enough dough and removes dough if enough is available
             for (int i = 0; i < Pizza.Size.Count; i++)
             {
-                if (size == Pizza.Size[i])
+                if (size == Pizza.Size[i] || Pizza.DoughUsed[i] * quantity <= LocationInventory[LocationMarker].Dough)
                 {
-                    if (Pizza.DoughUsed[i] * quantity <= LocationInventory[LocationMarker].Dough)
-                    {
-                        LocationInventory[LocationMarker].Dough -= Pizza.DoughUsed[i] * quantity;
-                        checkNum++;
-                    }
-                    break;
+                    LocationInventory[LocationMarker].Dough -= Pizza.DoughUsed[i] * quantity;
+                    checkNum++;
                 }
+                break;
             }
 
             if (checkNum == toppings.Count + 1)

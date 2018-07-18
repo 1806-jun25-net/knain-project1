@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Project1.UI
 {
-    public class Program
+    public static class Program
     {
         //set up logging
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
@@ -36,8 +36,8 @@ namespace Project1.UI
             }
 
             //checks if you are allowed to place an order
-            if (Order.CheckTime2(Order.OrderTime, //change CheckTime to switch from XML to DB
-                Customers.CustomerName, Order.OrderLocation) == false) 
+            if (!Order.CheckTime2(Order.OrderTime, //change CheckTime to switch from XML to DB
+                Customers.CustomerName, Order.OrderLocation)) 
             {
                 Console.WriteLine("Sorry, you need to wait to place another order or choose a different location" +
                     "\npress any key to exit the program.");
@@ -47,7 +47,7 @@ namespace Project1.UI
 
             //checks current inventory levels
             //change Check to switch from XML to DB
-            if (Location.Check2(Order.OrderLocation, Order.OrderToppings, Order.OrderSize, Order.OrderQuantity) == false)
+            if (!Location.Check2(Order.OrderLocation, Order.OrderToppings, Order.OrderSize, Order.OrderQuantity))
             {
                 Console.WriteLine("Sorry, that location does not have the ingredients to complete your order" +
                     "\npress any key to exit the program.");

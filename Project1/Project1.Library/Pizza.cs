@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Project1.Library
 {
-    public class Pizza
+    public static class Pizza
     {
         public static List<string> Size { get; } = new List<string> { "Small", "Medium", "Large" };
         public static List<double> DoughUsed { get; } = new List<double> { 1.0, 1.5, 2 };
