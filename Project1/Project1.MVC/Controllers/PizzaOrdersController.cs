@@ -289,20 +289,22 @@ namespace Project1.MVC.Controllers
             {
                 Location.InventoryRecall2();
                 if (!Location.Check2(collection["Location.LocationName"], collection["PizzaOrderToppings"].ToList()
-                    ,collection["Pizza.PizzaSize"], Int32.Parse(collection["PizzaQuantity"])))
+                    ,collection["Pizza.PizzaSize"], (int)Convert.ToDouble(collection["PizzaQuantity"])))
                 {
                     TempData["Message"] = "Not enough inventory at that location to place order.";
                     throw new Exception();
                 }
 
                 Location.OrderHistoryRecall2();
-                if (!Order.CheckTime2(DateTime.Now, collection["Customer.CustomerName"], collection["Location.LocationName"]))
+                if (!Order.CheckTime2(DateTime.Now,
+                    TempData.Peek("CurrentCustomerName").ToString(), collection["Location.LocationName"].ToString()))
                 {
                     TempData["Message"] = "You need to wait at least 2 hour before making an order at the same location.";
                     throw new Exception();
                 }
 
-                if (Int32.Parse(collection["PizzaQuantity"]) > 12 || Int32.Parse(collection["PizzaQuantity"]) < 1)
+                if ((int)Convert.ToDouble(collection["PizzaQuantity"]) > 12 || 
+                    (int)Convert.ToDouble(collection["PizzaQuantity"]) < 1)
                 {
                     TempData["Message"] = "You can only have a quantity of 1 to 12 pizzas.";
                     throw new Exception();
@@ -315,16 +317,17 @@ namespace Project1.MVC.Controllers
                     throw new Exception();
                 }
 
-                int cId = Repo.CheckCustomerId(collection["Customer.CustomerName"]);
+                int cId = Repo.CheckCustomerId(TempData["CurrentCustomerName"].ToString());
                 int lId = Repo.LookupLocationId(collection["Location.LocationName"]);
                 int pId = Repo.LookupPizzaId(collection["Pizza.PizzaSize"], collection["Pizza.PizzaCrust"]);
 
                 Repo.UpdateLocationInventory(collection["Location.LocationName"], collection["Pizza.PizzaSize"],
-                    collection["PizzaOrderToppings"].ToList(), Int32.Parse(collection["PizzaQuantity"]));
+                    collection["PizzaOrderToppings"].ToList(), (int)Convert.ToDouble(collection["PizzaQuantity"]));
 
-                Repo.AddPizzaOrder(cId, lId, pId, Int32.Parse(collection["PizzaQuantity"]),
+                Repo.AddPizzaOrder(cId, lId, pId, (int)Convert.ToDouble(collection["PizzaQuantity"]),
                     Order.CalculateCost(collection["Pizza.PizzaSize"],
-                    collection["PizzaOrderToppings"].ToList(), Int32.Parse(collection["PizzaQuantity"])), DateTime.Now);
+                    collection["PizzaOrderToppings"].ToList(),
+                    (int)Convert.ToDouble(collection["PizzaQuantity"])), DateTime.Now);
 
                 Repo.AddPizzaOrderToppings(collection["PizzaOrderToppings"].ToList());
 

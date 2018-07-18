@@ -14,14 +14,14 @@
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
+            @*<div class="form-group">
                 <label asp-for="Customer.CustomerName" class="control-label"></label>
                 <input type="text" asp-for="Customer.CustomerName" class="form-control"
                        value="@if (TempData.ContainsKey("CurrentCustomerName"))
                        {
 		                            @TempData.Peek("CurrentCustomerName")
                        }" />
-            </div>
+            </div>*@
             <div class="form-group">
                 <label asp-for="Location.LocationName" class="control-label"></label>
                 <select asp-for="Location.LocationName" class="form-control">
@@ -105,9 +105,14 @@
                 <label asp-for="PizzaOrderToppings" class="control-label"></label>
                 <select asp-for="PizzaOrderToppings" class="form-control" multiple>
                     @{
-                        string temp = TempData.Peek("Toppings").ToString();
-                        List<string> toppings = temp.Split(", ").ToList();
                         int checker = 0;
+                        string temp = null;
+                        List<string> toppings = new List<string> { };
+                        if (TempData.ContainsKey("Toppings"))
+                        {
+                            temp = TempData.Peek("Toppings").ToString();
+                            toppings = temp.Split(", ").ToList();
+                        }
                     }
 
                     @foreach (var item in Project1.Library.Pizza.Toppings)
@@ -152,15 +157,11 @@
                 }
                 <span asp-validation-for="PizzaQuantity" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group" id="hide">
                 <input type="submit" value="Create" class="btn btn-default" />
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {

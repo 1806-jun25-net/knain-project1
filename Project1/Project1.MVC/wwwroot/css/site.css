@@ -60,3 +60,7 @@ h1 {
     text-align: center;
     background: lightgrey;
 }
+
+#hide :active{
+    display:none;
+}

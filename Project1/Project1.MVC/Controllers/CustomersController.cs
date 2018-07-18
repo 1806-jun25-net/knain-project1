@@ -41,12 +41,20 @@ namespace Project1.MVC.Controllers
 
             var repo = new PizzaRepos(new Project1Context(optionsBuilder.Options));
 
+            string name = collection["CustomerName"].ToString();
+
+            if (name.Length > 12)
+            {
+                TempData["Message"] = "Username cannot be longer than 12 characters.";
+                return View("SignIn");
+            }
+
             if (collection["CustomerName"] == "Password123")
             {
                 TempData["CurrentCustomerName"] = "Mr. President";
                 return View("Manager");
             }
-            TempData["CurrentCustomerName"] = collection["CustomerName"].ToString();
+            TempData["CurrentCustomerName"] = name;
             if (repo.CheckCustomerName(collection["CustomerName"]))
             {
                 return RedirectToAction("PreviousOrder", "PizzaOrders");
