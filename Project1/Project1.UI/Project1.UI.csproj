@@ -22,4 +22,8 @@
     <ProjectReference Include="..\Project1.Library\Project1.Library.csproj" />
   </ItemGroup>
 
+  <PropertyGroup>
+    <DebugType>Full</DebugType>
+  </PropertyGroup>
+
 </Project>

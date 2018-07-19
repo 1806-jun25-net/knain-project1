@@ -25,4 +25,8 @@
     <ProjectReference Include="..\Project1.UI\Project1.UI.csproj" />
   </ItemGroup>
 
+  <PropertyGroup>
+    <DebugType>Full</DebugType>
+  </PropertyGroup>
+
 </Project>

@@ -19,4 +19,8 @@
     <ProjectReference Include="..\Project1.ContextLibrary\Project1.ContextLibrary.csproj" />
   </ItemGroup>
 
+  <PropertyGroup>
+    <DebugType>Full</DebugType>
+  </PropertyGroup>
+
 </Project>
