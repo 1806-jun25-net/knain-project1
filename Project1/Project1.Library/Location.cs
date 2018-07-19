@@ -38,9 +38,8 @@ namespace Project1.Library
 
         public static void OrderHistoryRecall()
         {
-            string path = @"C:\Revature\knain-project1\Project1\orderHistory.xml";
-            Task<IEnumerable<SerializeOrder>> deserializeFile = Serializer.DeserializeOrderFromFile(
-                path);
+            string path = Path.Combine(Environment.CurrentDirectory, "orderHistory.xml");
+            Task<IEnumerable<SerializeOrder>> deserializeFile = Serializer.DeserializeOrderFromFile(path);
             IEnumerable<SerializeOrder> order = new List<SerializeOrder>();
             try
             {
@@ -55,9 +54,8 @@ namespace Project1.Library
 
         public static void InventoryRecall()
         {
-            string path = @"C:\Revature\knain-project1\Project1\locationInventory.xml";
-            Task<IEnumerable<SerializeInventory>> deserializeFile = Serializer.DeserializeInventoryFromFile(
-                path);
+            string path = Path.Combine(Environment.CurrentDirectory, "locationInventory.xml");
+            Task<IEnumerable<SerializeInventory>> deserializeFile = Serializer.DeserializeInventoryFromFile(path);
             IEnumerable<SerializeInventory> inventory = new List<SerializeInventory>();
             try
             {
@@ -146,7 +144,6 @@ namespace Project1.Library
                         int newQuantity = Int32.Parse(LocationInventory[LocationMarker].ToppingLevels[b]) - quantity;
                         LocationInventory[LocationMarker].ToppingLevels[b] = newQuantity.ToString();
                     }
-                    break;
                 }
             }
 
@@ -158,7 +155,6 @@ namespace Project1.Library
                     LocationInventory[LocationMarker].Dough -= Pizza.DoughUsed[i] * quantity;
                     checkNum++;
                 }
-                break;
             }
 
             if (checkNum == toppings.Count + 1)
