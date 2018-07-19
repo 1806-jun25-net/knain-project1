@@ -22,150 +22,35 @@ namespace Project1.MVC.Controllers
         //[FromQuery]string search = ""
         public ActionResult Index()
         {
-            var libraryOrders = Repo.GetPizzaOrders();
-            
-            var webOrders = libraryOrders.Select(x => new PizzaOrder
-            {
-                PizzaOrderId = x.PizzaOrderId,
-                CustomerId = x.CustomerId,
-                LocationId = x.LocationId,
-                PizzaId = x.PizzaId,
-                PizzaQuantity = x.PizzaQuantity,
-                OrderCost = x.OrderCost,
-                OrderTime = x.OrderTime,
-                Customer = libraryOrders.Where(y => y.CustomerId == x.CustomerId).Select(y => new Customer
-                {
-                    CustomerName = y.Customer.CustomerName,
-                }).First(),
-                Location = libraryOrders.Where(y => y.LocationId == x.LocationId).Select(y => new LocationInventory
-                {
-                    LocationName = y.Location.LocationName
-                }).First(),
-                Pizza = libraryOrders.Where(y => y.PizzaId == x.PizzaId).Select(y => new ContextLibrary.Pizza
-                {
-                    PizzaId = y.Pizza.PizzaId
-                }).First()
-            });
+            var webOrders = MyOrder();
 
             return View("Index", webOrders);
         }
 
         public ActionResult IndexEarliest()
         {
-            var libraryOrders = Repo.GetPizzaOrders();
-
-            var webOrders = libraryOrders.OrderByDescending(x => x.OrderTime).Select(x => new PizzaOrder
-            {
-                PizzaOrderId = x.PizzaOrderId,
-                CustomerId = x.CustomerId,
-                LocationId = x.LocationId,
-                PizzaId = x.PizzaId,
-                PizzaQuantity = x.PizzaQuantity,
-                OrderCost = x.OrderCost,
-                OrderTime = x.OrderTime,
-                Customer = libraryOrders.Where(y => y.CustomerId == x.CustomerId).Select(y => new Customer
-                {
-                    CustomerName = y.Customer.CustomerName,
-                }).First(),
-                Location = libraryOrders.Where(y => y.LocationId == x.LocationId).Select(y => new LocationInventory
-                {
-                    LocationName = y.Location.LocationName
-                }).First(),
-                Pizza = libraryOrders.Where(y => y.PizzaId == x.PizzaId).Select(y => new ContextLibrary.Pizza
-                {
-                    PizzaId = y.Pizza.PizzaId
-                }).First()
-            });
+            var webOrders = MyOrder().OrderByDescending(x => x.OrderTime);
 
             return View("Index", webOrders);
         }
 
         public ActionResult IndexLatest()
         {
-            var libraryOrders = Repo.GetPizzaOrders();
-
-            var webOrders = libraryOrders.OrderBy(x => x.OrderTime).Select(x => new PizzaOrder
-            {
-                PizzaOrderId = x.PizzaOrderId,
-                CustomerId = x.CustomerId,
-                LocationId = x.LocationId,
-                PizzaId = x.PizzaId,
-                PizzaQuantity = x.PizzaQuantity,
-                OrderCost = x.OrderCost,
-                OrderTime = x.OrderTime,
-                Customer = libraryOrders.Where(y => y.CustomerId == x.CustomerId).Select(y => new Customer
-                {
-                    CustomerName = y.Customer.CustomerName,
-                }).First(),
-                Location = libraryOrders.Where(y => y.LocationId == x.LocationId).Select(y => new LocationInventory
-                {
-                    LocationName = y.Location.LocationName
-                }).First(),
-                Pizza = libraryOrders.Where(y => y.PizzaId == x.PizzaId).Select(y => new ContextLibrary.Pizza
-                {
-                    PizzaId = y.Pizza.PizzaId
-                }).First()
-            });
+            var webOrders = MyOrder().OrderBy(x => x.OrderTime);
 
             return View("Index", webOrders);
         }
 
         public ActionResult IndexHighest()
         {
-            var libraryOrders = Repo.GetPizzaOrders();
-
-            var webOrders = libraryOrders.OrderByDescending(x => x.OrderCost).Select(x => new PizzaOrder
-            {
-                PizzaOrderId = x.PizzaOrderId,
-                CustomerId = x.CustomerId,
-                LocationId = x.LocationId,
-                PizzaId = x.PizzaId,
-                PizzaQuantity = x.PizzaQuantity,
-                OrderCost = x.OrderCost,
-                OrderTime = x.OrderTime,
-                Customer = libraryOrders.Where(y => y.CustomerId == x.CustomerId).Select(y => new Customer
-                {
-                    CustomerName = y.Customer.CustomerName,
-                }).First(),
-                Location = libraryOrders.Where(y => y.LocationId == x.LocationId).Select(y => new LocationInventory
-                {
-                    LocationName = y.Location.LocationName
-                }).First(),
-                Pizza = libraryOrders.Where(y => y.PizzaId == x.PizzaId).Select(y => new ContextLibrary.Pizza
-                {
-                    PizzaId = y.Pizza.PizzaId
-                }).First()
-            });
+            var webOrders = MyOrder().OrderByDescending(x => x.OrderCost);
 
             return View("Index", webOrders);
         }
 
         public ActionResult IndexLowest()
         {
-            var libraryOrders = Repo.GetPizzaOrders();
-
-            var webOrders = libraryOrders.OrderBy(x => x.OrderCost).Select(x => new PizzaOrder
-            {
-                PizzaOrderId = x.PizzaOrderId,
-                CustomerId = x.CustomerId,
-                LocationId = x.LocationId,
-                PizzaId = x.PizzaId,
-                PizzaQuantity = x.PizzaQuantity,
-                OrderCost = x.OrderCost,
-                OrderTime = x.OrderTime,
-                Customer = libraryOrders.Where(y => y.CustomerId == x.CustomerId).Select(y => new Customer
-                {
-                    CustomerName = y.Customer.CustomerName,
-                }).First(),
-                Location = libraryOrders.Where(y => y.LocationId == x.LocationId).Select(y => new LocationInventory
-                {
-                    LocationName = y.Location.LocationName
-                }).First(),
-                Pizza = libraryOrders.Where(y => y.PizzaId == x.PizzaId).Select(y => new ContextLibrary.Pizza
-                {
-                    PizzaId = y.Pizza.PizzaId
-                }).First()
-            });
+            var webOrders = MyOrder().OrderBy(x => x.OrderCost);
 
             return View("Index", webOrders);
         }
@@ -174,31 +59,7 @@ namespace Project1.MVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult IndexLocation(IFormCollection collection)
         {
-            var libraryOrders = Repo.GetPizzaOrders();
-
-            var webOrders = libraryOrders.Where(x => x.Location.LocationName == collection["Location.LocationName"]).
-                Select(x => new PizzaOrder
-            {
-                PizzaOrderId = x.PizzaOrderId,
-                CustomerId = x.CustomerId,
-                LocationId = x.LocationId,
-                PizzaId = x.PizzaId,
-                PizzaQuantity = x.PizzaQuantity,
-                OrderCost = x.OrderCost,
-                OrderTime = x.OrderTime,
-                Customer = libraryOrders.Where(y => y.CustomerId == x.CustomerId).Select(y => new Customer
-                {
-                    CustomerName = y.Customer.CustomerName,
-                }).First(),
-                Location = libraryOrders.Where(y => y.LocationId == x.LocationId).Select(y => new LocationInventory
-                {
-                    LocationName = y.Location.LocationName
-                }).First(),
-                Pizza = libraryOrders.Where(y => y.PizzaId == x.PizzaId).Select(y => new ContextLibrary.Pizza
-                {
-                    PizzaId = y.Pizza.PizzaId
-                }).First()
-            });
+            var webOrders = MyOrder().Where(x => x.Location.LocationName == collection["Location.LocationName"]);
 
             return View("Index", webOrders);
         }
@@ -207,32 +68,9 @@ namespace Project1.MVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult IndexUser(IFormCollection collection)
         {
-            var libraryOrders = Repo.GetPizzaOrders();
             int cId = Repo.CheckCustomerId(collection["CustomerName"]);
 
-            var webOrders = libraryOrders.Where(x => x.CustomerId == cId).
-                Select(x => new PizzaOrder
-                {
-                    PizzaOrderId = x.PizzaOrderId,
-                    CustomerId = x.CustomerId,
-                    LocationId = x.LocationId,
-                    PizzaId = x.PizzaId,
-                    PizzaQuantity = x.PizzaQuantity,
-                    OrderCost = x.OrderCost,
-                    OrderTime = x.OrderTime,
-                    Customer = libraryOrders.Where(y => y.CustomerId == x.CustomerId).Select(y => new Customer
-                    {
-                        CustomerName = y.Customer.CustomerName,
-                    }).First(),
-                    Location = libraryOrders.Where(y => y.LocationId == x.LocationId).Select(y => new LocationInventory
-                    {
-                        LocationName = y.Location.LocationName
-                    }).First(),
-                    Pizza = libraryOrders.Where(y => y.PizzaId == x.PizzaId).Select(y => new ContextLibrary.Pizza
-                    {
-                        PizzaId = y.Pizza.PizzaId
-                    }).First()
-                });
+            var webOrders = MyOrder().Where(x => x.CustomerId == cId);
 
             return View("Index", webOrders);
         }
@@ -240,36 +78,7 @@ namespace Project1.MVC.Controllers
         // GET: PizzaOrder/Details/5
         public ActionResult Details(int id)
         {
-            var libraryOrders = Repo.GetPizzaOrders();
-
-            var webOrders = libraryOrders.Where(x => x.PizzaOrderId == id).Select(x => new PizzaOrder
-            {
-                PizzaOrderId = x.PizzaOrderId,
-                CustomerId = x.CustomerId,
-                LocationId = x.LocationId,
-                PizzaId = x.PizzaId,
-                PizzaQuantity = x.PizzaQuantity,
-                OrderCost = x.OrderCost,
-                OrderTime = x.OrderTime,
-                Customer = libraryOrders.Where(y => y.CustomerId == x.CustomerId).Select(y => new Customer
-                {
-                    CustomerName = y.Customer.CustomerName
-                }).First(),
-                Location = libraryOrders.Where(y => y.LocationId == x.LocationId).Select(y => new LocationInventory
-                {
-                    LocationName = y.Location.LocationName
-                }).First(),
-                Pizza = libraryOrders.Where(y => y.PizzaId == x.PizzaId).Select(y => new ContextLibrary.Pizza
-                {
-                    PizzaSize = y.Pizza.PizzaSize,
-                    PizzaCrust = y.Pizza.PizzaCrust
-                }).First(),
-                PizzaOrderToppings = libraryOrders.Where(y => y.PizzaOrderId == x.PizzaOrderId).
-                    Select(y => new PizzaOrderToppings
-                    {
-                        ToppingName = string.Join(", ", y.PizzaOrderToppings.Select(y2 => y2.ToppingName).ToList())
-                    })
-            }).First();
+            var webOrders = MyOrderToppings();
 
             return View(webOrders);
         }
@@ -401,7 +210,6 @@ namespace Project1.MVC.Controllers
                 tempToppings.Add(item.ToppingName);
             }
             string toppings = tempToppings[0];
-            //List<string> toppings = tempToppings[0].Split(", ").ToList();
             
             TempData["Toppings"] = toppings;
             TempData["Quantity"] = webOrders.PizzaQuantity;
@@ -453,6 +261,72 @@ namespace Project1.MVC.Controllers
             {
                 return View();
             }
+        }
+
+        public IEnumerable<PizzaOrder> MyOrderToppings()
+        {
+            var libraryOrders = Repo.GetPizzaOrders();
+
+            var webOrders = libraryOrders.Where(x => x.PizzaOrderId == id).Select(x => new PizzaOrder
+            {
+                PizzaOrderId = x.PizzaOrderId,
+                CustomerId = x.CustomerId,
+                LocationId = x.LocationId,
+                PizzaId = x.PizzaId,
+                PizzaQuantity = x.PizzaQuantity,
+                OrderCost = x.OrderCost,
+                OrderTime = x.OrderTime,
+                Customer = libraryOrders.Where(y => y.CustomerId == x.CustomerId).Select(y => new Customer
+                {
+                    CustomerName = y.Customer.CustomerName
+                }).First(),
+                Location = libraryOrders.Where(y => y.LocationId == x.LocationId).Select(y => new LocationInventory
+                {
+                    LocationName = y.Location.LocationName
+                }).First(),
+                Pizza = libraryOrders.Where(y => y.PizzaId == x.PizzaId).Select(y => new ContextLibrary.Pizza
+                {
+                    PizzaSize = y.Pizza.PizzaSize,
+                    PizzaCrust = y.Pizza.PizzaCrust
+                }).First(),
+                PizzaOrderToppings = libraryOrders.Where(y => y.PizzaOrderId == x.PizzaOrderId).
+                    Select(y => new PizzaOrderToppings
+                    {
+                        ToppingName = string.Join(", ", y.PizzaOrderToppings.Select(y2 => y2.ToppingName).ToList())
+                    })
+            }).First();
+
+            return webOrders;
+        }
+
+        public IEnumerable<PizzaOrder> MyOrder()
+        {
+            var libraryOrders = Repo.GetPizzaOrders();
+
+            var webOrders = libraryOrders.Select(x => new PizzaOrder
+            {
+                PizzaOrderId = x.PizzaOrderId,
+                CustomerId = x.CustomerId,
+                LocationId = x.LocationId,
+                PizzaId = x.PizzaId,
+                PizzaQuantity = x.PizzaQuantity,
+                OrderCost = x.OrderCost,
+                OrderTime = x.OrderTime,
+                Customer = libraryOrders.Where(y => y.CustomerId == x.CustomerId).Select(y => new Customer
+                {
+                    CustomerName = y.Customer.CustomerName,
+                }).First(),
+                Location = libraryOrders.Where(y => y.LocationId == x.LocationId).Select(y => new LocationInventory
+                {
+                    LocationName = y.Location.LocationName
+                }).First(),
+                Pizza = libraryOrders.Where(y => y.PizzaId == x.PizzaId).Select(y => new ContextLibrary.Pizza
+                {
+                    PizzaId = y.Pizza.PizzaId
+                }).First()
+            });
+
+            return webOrders;
         }
     }
 }
