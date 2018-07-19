@@ -78,7 +78,7 @@ namespace Project1.MVC.Controllers
         // GET: PizzaOrder/Details/5
         public ActionResult Details(int id)
         {
-            var webOrders = MyOrderToppings();
+            var webOrders = MyOrderToppings(id);
 
             return View(webOrders);
         }
@@ -263,7 +263,7 @@ namespace Project1.MVC.Controllers
             }
         }
 
-        public IEnumerable<PizzaOrder> MyOrderToppings()
+        public PizzaOrder MyOrderToppings(int id)
         {
             var libraryOrders = Repo.GetPizzaOrders();
 
